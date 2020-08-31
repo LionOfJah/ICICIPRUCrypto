@@ -15,8 +15,10 @@
 	<name>AccountStatementConsolidateService-1</name>
 	<description>EncryptionDecryption</description>
 
+	<packaging>war</packaging>
 	<properties>
 		<java.version>1.8</java.version>
+		<start-class>com.icicibank.apimgmt.CryptoGraphickOperations</start-class>
 	</properties>
 
 	<dependencies>
@@ -33,6 +35,18 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
