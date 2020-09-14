@@ -26,6 +26,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 
+import com.icicibank.apimgmt.model.Base64Impl;
 import com.icicibank.apimgmt.service.CyptographicOpsService;
 
 @Service
@@ -34,7 +35,7 @@ public final class CryptoGraphicOpsServiceImpl implements CyptographicOpsService
 	@Override
 	public String doEncryption(String input) {
 		byte[] ivBytes=null;
-		 String password="THIS_IS_TEST";
+		 String password="!i@*6@($%(";
 		 
 		    long time =System.currentTimeMillis();
 	        String currentTime=String.valueOf(time);
@@ -106,13 +107,14 @@ public final class CryptoGraphicOpsServiceImpl implements CyptographicOpsService
 		al.addAll(ivBytesList);
 		al.addAll(encryptedTextBytesList);
 		Byte[] buffer = al.toArray(new Byte[al.size()]);
-		return Base64Utils.encodeToString(ArrayUtils.toPrimitive(buffer));
+		/* return Base64Utils.encodeToString(ArrayUtils.toPrimitive(buffer)); */
+		return Base64Impl.getInstance().encodeToString(ArrayUtils.toPrimitive(buffer));
 
 	}
 
 	@Override
 	public String doDecyption(String input) {
-		 String password="THIS_IS_TEST";
+		 String password="!i@*6@($%(";
 			Cipher cipher=null;;
 			try {
 				cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
@@ -124,7 +126,8 @@ public final class CryptoGraphicOpsServiceImpl implements CyptographicOpsService
 				e.printStackTrace();
 			}
 			// strip off the salt and iv
-			ByteBuffer buffer = ByteBuffer.wrap(Base64Utils.decodeFromString(input));
+			ByteBuffer buffer = ByteBuffer.wrap(Base64Impl.getInstance().decode(input));
+		/* ByteBuffer buffer = ByteBuffer.wrap(Base64Utils.decodeFromString(input)); */
 			byte[] saltBytes = new byte[8];
 			buffer.get(saltBytes, 0, saltBytes.length);
 			byte[] ivBytes1 = new byte[cipher.getBlockSize()];
